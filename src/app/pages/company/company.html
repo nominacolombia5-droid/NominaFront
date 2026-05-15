@@ -1,0 +1,333 @@
+<div class="relative min-h-screen overflow-hidden bg-slate-950 text-white">
+
+ <div class="absolute inset-0 animated-bg -z-10"></div>
+
+  <div class="floating-money money-1">$</div>
+  <div class="floating-money money-2">💰</div>
+  <div class="floating-money money-3">$</div>
+  <div class="floating-money money-4">COP</div>
+  <div class="floating-money money-5">₱</div>
+
+  <div class="relative z-50">
+  <app-navbar></app-navbar>
+</div>
+
+  <main class="relative z-10 max-w-6xl mx-auto px-6 py-12">
+    <h1 class="text-5xl font-bold mb-3">Company Profile</h1>
+
+    <p class="text-slate-400 mb-10">
+      Calculate the total payroll cost assumed by the company according to the selected contract.
+    </p>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-3xl p-8 mb-10">
+      <h2 class="text-3xl font-bold mb-8">Payroll data</h2>
+
+      <div class="space-y-6">
+
+        <div>
+          <label class="block mb-2 text-slate-300">
+            Contract type
+          </label>
+
+          <select
+            [(ngModel)]="form.contractType"
+            class="w-full p-4 rounded-xl bg-slate-950 border border-slate-700"
+          >
+            <option value="">
+              Select contract
+            </option>
+
+            <option value="fixed">
+              Fixed-term contract
+            </option>
+
+            <option value="indefinite">
+              Indefinite-term contract
+            </option>
+
+            <option value="work">
+              Work or labor contract
+            </option>
+
+            <option value="partTime">
+              Part-time contract
+            </option>
+
+            <option value="services">
+              Service provision contract
+            </option>
+
+          </select>
+        </div>
+
+        <div>
+          <label class="block mb-2 text-slate-300">
+            Monthly salary / fees
+          </label>
+
+          <input
+            type="number"
+            [(ngModel)]="form.salary"
+            class="w-full p-4 rounded-xl bg-slate-950 border border-slate-700"
+          >
+        </div>
+
+        <div>
+          <label class="block mb-2 text-slate-300">
+            Worked days
+          </label>
+
+          <input
+            type="number"
+            [(ngModel)]="form.workedDays"
+            class="w-full p-4 rounded-xl bg-slate-950 border border-slate-700"
+          >
+        </div>
+
+        <div>
+          <label class="block mb-2 text-slate-300">
+            ARL risk level
+          </label>
+
+          <select
+            [(ngModel)]="form.arlLevel"
+            class="w-full p-4 rounded-xl bg-slate-950 border border-slate-700"
+          >
+            <option value="I">Level I</option>
+            <option value="II">Level II</option>
+            <option value="III">Level III</option>
+            <option value="IV">Level IV</option>
+            <option value="V">Level V</option>
+          </select>
+        </div>
+
+        <button
+          (click)="calculate()"
+          class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-4 rounded-xl transition"
+        >
+          Calculate company cost
+        </button>
+
+      </div>
+    </section>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-3xl p-8">
+
+      <h2 class="text-3xl font-bold mb-8">
+        Results
+      </h2>
+
+      <div *ngIf="!result" class="text-slate-400">
+        Enter the payroll data and press calculate.
+      </div>
+
+      <div *ngIf="result" class="space-y-4">
+
+        <div class="flex justify-between border-b border-slate-800 pb-3">
+          <span>
+            {{ result.isServiceContract ? 'Fees' : 'Base salary' }}
+          </span>
+
+          <strong>
+            {{ format(result.proportionalSalary) }}
+          </strong>
+        </div>
+
+        <!-- SERVICE CONTRACT -->
+
+        <div
+          *ngIf="result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>IBC base 40%</span>
+
+          <strong>
+            {{ format(result.contractorIbc) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>Contractor health contribution</span>
+
+          <strong>
+            {{ format(result.contractorHealth) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>Contractor pension contribution</span>
+
+          <strong>
+            {{ format(result.contractorPension) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>Contractor ARL contribution</span>
+
+          <strong>
+            {{ format(result.contractorArl) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3 text-cyan-400"
+        >
+          <span>Contractor net income</span>
+
+          <strong>
+            {{ format(result.contractorNet) }}
+          </strong>
+        </div>
+
+        <!-- LABOR CONTRACTS -->
+
+        <div
+          *ngIf="!result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>Transport allowance</span>
+
+          <strong>
+            {{ format(result.transport) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="!result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>Health company contribution</span>
+
+          <strong>
+            {{ format(result.healthCompany) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="!result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>Pension company contribution</span>
+
+          <strong>
+            {{ format(result.pensionCompany) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="!result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>ARL</span>
+
+          <strong>
+            {{ format(result.arl) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="!result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>Compensation fund</span>
+
+          <strong>
+            {{ format(result.compensationFund) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="!result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>ICBF</span>
+
+          <strong>
+            {{ format(result.icbf) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="!result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>SENA</span>
+
+          <strong>
+            {{ format(result.sena) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="!result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>Service bonus</span>
+
+          <strong>
+            {{ format(result.serviceBonus) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="!result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>Severance</span>
+
+          <strong>
+            {{ format(result.severance) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="!result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>Severance interest</span>
+
+          <strong>
+            {{ format(result.severanceInterest) }}
+          </strong>
+        </div>
+
+        <div
+          *ngIf="!result.isServiceContract"
+          class="flex justify-between border-b border-slate-800 pb-3"
+        >
+          <span>Vacation</span>
+
+          <strong>
+            {{ format(result.vacation) }}
+          </strong>
+        </div>
+
+        <div class="flex justify-between pt-6 text-2xl text-cyan-400">
+
+          <span>
+            Total company cost
+          </span>
+
+          <strong>
+            {{ format(result.totalCompanyCost) }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+</div>

@@ -1,0 +1,69 @@
+.logo-glow {
+
+    text-shadow:
+        0 0 8px rgba(34, 211, 238, 0.8),
+        0 0 18px rgba(34, 211, 238, 0.6),
+        0 0 40px rgba(34, 211, 238, 0.35);
+
+    animation: pulseLogo 3s ease-in-out infinite;
+}
+
+@keyframes pulseLogo {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+
+}
+
+.nav-link {
+
+    position: relative;
+    transition: all 0.3s ease;
+
+}
+
+.nav-link::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -8px;
+
+    width: 0%;
+    height: 3px;
+
+    background: #22d3ee;
+
+    border-radius: 999px;
+
+    transition: width 0.35s ease;
+
+    box-shadow:
+        0 0 10px rgba(34, 211, 238, 0.8),
+        0 0 20px rgba(34, 211, 238, 0.5);
+
+}
+
+.nav-link:hover {
+
+    color: #22d3ee;
+
+    text-shadow:
+        0 0 10px rgba(34, 211, 238, 0.7);
+
+    transform: translateY(-2px);
+
+}
+
+.nav-link:hover::after {
+
+    width: 100%;
+
+}

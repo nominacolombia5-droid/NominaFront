@@ -1,0 +1,44 @@
+.animated-bg {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.16), transparent 30%),
+    radial-gradient(circle at 80% 30%, rgba(59, 130, 246, 0.16), transparent 30%),
+    linear-gradient(120deg, #020617, #0f172a, #020617);
+  background-size: 200% 200%;
+  animation: moveBackground 10s ease infinite;
+}
+
+@keyframes moveBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.floating-money {
+  position: absolute;
+  z-index: 1;
+  color: rgba(34, 211, 238, 0.25);
+  font-weight: 900;
+  pointer-events: none;
+  animation: floatMoney 8s ease-in-out infinite;
+}
+
+.money-1 { top: 18%; left: 8%; font-size: 70px; animation-delay: 0s; }
+.money-2 { top: 70%; left: 12%; font-size: 50px; animation-delay: 1s; }
+.money-3 { top: 25%; right: 10%; font-size: 90px; animation-delay: 2s; }
+.money-4 { bottom: 12%; right: 18%; font-size: 55px; animation-delay: 3s; }
+.money-5 { bottom: 28%; left: 47%; font-size: 38px; animation-delay: 4s; }
+
+@keyframes floatMoney {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) rotate(0deg) scale(0.8);
+  }
+  30% { opacity: 1; }
+  50% {
+    transform: translateY(-35px) rotate(12deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) rotate(-20deg) scale(1.2);
+  }
+}

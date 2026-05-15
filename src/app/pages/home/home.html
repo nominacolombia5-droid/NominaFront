@@ -1,0 +1,78 @@
+<div class="relative min-h-screen overflow-hidden bg-slate-950 text-white">
+
+  <div class="absolute inset-0 animated-bg"></div>
+
+  <div class="floating-money money-1">$</div>
+  <div class="floating-money money-2">💰</div>
+  <div class="floating-money money-3">$</div>
+  <div class="floating-money money-4">₿</div>
+  <div class="floating-money money-5">COLOMBIA</div>
+
+  <div class="absolute top-20 left-20 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+  <div class="absolute bottom-20 right-20 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
+
+  <app-navbar></app-navbar>
+
+  <main class="relative z-10 flex flex-col items-center justify-center px-6 py-24">
+
+    <div class="text-center hero-enter">
+      <span class="inline-block mb-5 px-5 py-2 rounded-full border border-cyan-400/40 bg-cyan-400/10 text-cyan-300 text-sm">
+        Colombian Payroll Calculator
+      </span>
+
+      <h1 class="text-5xl md:text-7xl font-extrabold text-center mb-6 leading-tight animated-title">
+  <span class="word-float">Colombia</span>
+  <span class="word-float delay-1">Payroll</span>
+  <span class="block text-cyan-400 glow-text word-float delay-2">System</span>
+</h1>
+      <p class="text-slate-300 text-center max-w-3xl text-lg md:text-xl mb-16 animated-subtitle">
+  Calculate payroll, social security, employee benefits and contractor payments
+  according to Colombian labor rules in a fast and interactive way.
+</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-5xl">
+
+      <a
+        routerLink="/company"
+        class="magic-card card-left group"
+      >
+        <div class="card-icon">🏢</div>
+
+        <h2 class="text-3xl font-bold mb-4 group-hover:text-cyan-300 transition">
+          Company Profile
+        </h2>
+
+        <p class="text-slate-400 mb-6">
+          Calculate payroll costs, social security, ARL,
+          parafiscal contributions and employee benefits.
+        </p>
+
+        <span class="text-cyan-400 font-bold">
+          Start calculation →
+        </span>
+      </a>
+
+      <a
+        routerLink="/employee"
+        class="magic-card card-right group"
+      >
+        <div class="card-icon">👤</div>
+
+        <h2 class="text-3xl font-bold mb-4 group-hover:text-cyan-300 transition">
+          Employee Profile
+        </h2>
+
+        <p class="text-slate-400 mb-6">
+          Calculate salary deductions, net income and independent contractor contributions.
+        </p>
+
+        <span class="text-cyan-400 font-bold">
+          Check my salary →
+        </span>
+      </a>
+
+    </div>
+
+  </main>
+</div>
